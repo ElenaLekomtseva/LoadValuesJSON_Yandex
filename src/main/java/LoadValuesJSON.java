@@ -10,39 +10,37 @@ public class LoadValuesJSON {
 
     /**
      * Load values in main JSON from second JSON. The result is written to the new JSON.
-     * @param mainFileReader
-     * @param secondFileReader
-     * @param resultFileWriter
+     *
+     * @param mainFile
+     * @param secondFile
      */
-    public static void loadValues(FileReader mainFileReader, FileReader secondFileReader, FileWriter resultFileWriter) {
-        Gson gson = new GsonBuilder().create();
+    static void loadValues(String mainFile, String secondFile) {
 
-        Type token = new TypeToken<HashMap<String, Object>>() {
-        }.getType();
-        Map<String, Object> mainJson = gson.fromJson(mainFileReader, token);
-        Map<String, Object> secondJson = gson.fromJson(secondFileReader, token);
+        try (FileReader mainFileReader = new FileReader(mainFile);
+             FileReader secondFileReader = new FileReader(secondFile);
+             FileWriter resultFileWriter = new FileWriter(new File(new File(mainFile).getParent() + "/result.json"))) {
 
-        for (Map.Entry element : secondJson.entrySet()) {
-            mainJson.put(element.getKey().toString(), element.getValue());
-        }
+            Gson gson = new GsonBuilder().create();
 
-        gson.toJson(mainJson, resultFileWriter);
-    }
+            Type token = new TypeToken<HashMap<String, Object>>() {}.getType();
+            Map<String, Object> mainJson = gson.fromJson(mainFileReader, token);
+            Map<String, Object> secondJson = gson.fromJson(secondFileReader, token);
 
-    public static void main(String[] args) {
+            for (Map.Entry element : secondJson.entrySet()) {
+                mainJson.put(element.getKey().toString(), element.getValue());
+            }
 
-        try (FileReader mainFileReader = new FileReader(LoadValuesJSON.class
-                .getClassLoader().getResource("main.json").getFile());
-
-             FileReader secondFileReader = new FileReader(LoadValuesJSON.class
-                     .getClassLoader().getResource("second.json").getFile());
-
-             FileWriter resultFileWriter = new FileWriter(new File("result.json"))) {
-
-            loadValues(mainFileReader, secondFileReader, resultFileWriter);
-
+            gson.toJson(mainJson, resultFileWriter);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public static void main(String[] args) {
+        //LoadValuesJSON.class.getClassLoader().getResource("main.json").getFile()
+        loadValues(
+                "D:\\Work\\EPAM\\QA\\Project\\LoadValuesJSON_Yandex\\src\\main\\resources\\main.json",
+                "D:\\Work\\EPAM\\QA\\Project\\LoadValuesJSON_Yandex\\src\\main\\resources\\second.json");
+    }
 }
+
