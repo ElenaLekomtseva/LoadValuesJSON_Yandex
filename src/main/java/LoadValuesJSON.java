@@ -11,8 +11,8 @@ public class LoadValuesJSON {
     /**
      * Load values in main JSON from second JSON. The result is written to the new result.json
      *
-     * @param mainFile
-     * @param secondFile
+     * @param mainFile path to main file
+     * @param secondFile path to second file
      */
     static void loadValues(String mainFile, String secondFile) {
 
