@@ -9,7 +9,7 @@ import java.util.Map;
 public class LoadValuesJSON {
 
     /**
-     * Load values in main JSON from second JSON. The result is written to the new JSON.
+     * Load values in main JSON from second JSON. The result is written to the new result.json
      *
      * @param mainFile
      * @param secondFile
@@ -37,7 +37,6 @@ public class LoadValuesJSON {
     }
 
     public static void main(String[] args) {
-        //LoadValuesJSON.class.getClassLoader().getResource("main.json").getFile()
         loadValues(
                 "D:\\Work\\EPAM\\QA\\Project\\LoadValuesJSON_Yandex\\src\\main\\resources\\main.json",
                 "D:\\Work\\EPAM\\QA\\Project\\LoadValuesJSON_Yandex\\src\\main\\resources\\second.json");
